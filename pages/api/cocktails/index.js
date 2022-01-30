@@ -8,25 +8,24 @@ const cocktails = async (req, res) => {
 
   if (method === 'GET') {
     try {
-      const Cocktails = await Cocktail.find({});
-      res.status(201).json({ message: 'Success', data: Cocktails });
-      return;
+      const cocktails = await Cocktail.find({});
+      res.status(201).json({ message: 'Success', data: cocktails });
     } catch (error) {
       res.status(400).json({ message: 'Error' });
     }
+    return;
   }
 
   if (method === 'POST') {
     try {
-      const body = req.body;
-      const newCocktail = await Cocktail.create(body);
-
+      const newCocktail = await Cocktail.create(req.body);
       res.status(201).json({ message: 'Success', data: newCocktail });
-      return;
     } catch (error) {
       res.status(400).json({ message: 'Failed' });
     }
+    return;
   }
+
   if (method !== 'POST' || method !== 'GET') {
     res.status(400).json({ success: false });
     return;
