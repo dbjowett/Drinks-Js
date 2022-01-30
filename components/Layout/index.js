@@ -1,5 +1,6 @@
 import NavBar from '../Navigation_Bar';
 import Head from 'next/head';
+import { VStack } from '@chakra-ui/react';
 
 export default function Layout({ children }) {
   return (
@@ -8,7 +9,7 @@ export default function Layout({ children }) {
         <title>Cocktails</title>
       </Head>
       <NavBar />
-      {children}
+      <VStack spacing='30px'>{children}</VStack>
     </>
   );
 }

@@ -9,27 +9,28 @@ const handleFunction = async (req, res) => {
     query: { id }
   } = req;
 
-  // Delete a single Cocktail
-  if (method === 'DELETE') {
-    try {
-      const deletedNote = await Cocktail.deleteOne({ _id: id });
-      req.status(201).json({ message: 'Success', data: deletedNote });
-    } catch (error) {
-      req.status(400).json({ message: 'Failed' });
-    }
-    return;
-  }
-
   // Get a single Cocktail
   if (method === 'GET') {
     try {
       const note = await Cocktail.findOne({ _id: id });
       if (!note) {
-        req.status(201).json({ message: 'Failed' });
+        res.status(201).json({ message: 'Failed' });
       }
-      req.status(201).json({ message: 'Success', data: note });
+      res.status(201).json({ message: 'Success', data: note });
     } catch (error) {
-      req.status(400).json({ message: 'Failed' });
+      console.log(error);
+      res.status(400).json({ message: 'Failed' });
+    }
+    return;
+  }
+
+  // Delete a single Cocktail
+  if (method === 'DELETE') {
+    try {
+      const deletedNote = await Cocktail.deleteOne({ _id: id });
+      res.status(201).json({ message: 'Success', data: deletedNote });
+    } catch (error) {
+      res.status(400).json({ message: 'Failed' });
     }
     return;
   }
@@ -40,7 +41,7 @@ const handleFunction = async (req, res) => {
       const note = await Cocktail.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
       res.status(201).json({ message: 'Success', data: note });
     } catch (error) {
-      req.status(400).json({ message: 'Failed' });
+      res.status(400).json({ message: 'Failed' });
     }
     return;
   }

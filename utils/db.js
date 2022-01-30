@@ -6,6 +6,7 @@ const connectToDatabase = async () => {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
+  return db;
 };
 
 export default connectToDatabase;

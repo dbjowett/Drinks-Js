@@ -8,7 +8,7 @@ const customStyling = {
   marginTop: '100px',
   margin: '0 auto',
   border: '1px solid lightgray',
-  padding: '25px',
+  padding: '25px 45px',
   borderRadius: '10px',
   display: 'flex',
   flexDirection: 'column',
@@ -60,7 +60,7 @@ export default function New() {
           <Textarea id='Description' placeholder='Description' isRequired ref={descInputRef} />
           <FormHelperText>Please enter a useful description.</FormHelperText>
         </FormControl>
-        <Button type='submit' colorScheme='teal'>
+        <Button type='submit' colorScheme='blue'>
           Submit
         </Button>
       </form>
