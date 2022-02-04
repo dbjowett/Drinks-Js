@@ -1,11 +1,11 @@
 import { getAllCocktailIds, getCocktailData } from '../../utils/cocktails';
-
+import { Box, Text } from '@chakra-ui/react';
 export default function SingleCocktailPage({ cocktail }) {
   return (
-    <div>
-      <h1>{cocktail.title}</h1>
+    <Box maxW='600px' m='100px 0 0 0'>
+      <Text fontSize='3xl'>{cocktail.title}</Text>
       <div>{cocktail.description}</div>
-    </div>
+    </Box>
   );
 }
 
