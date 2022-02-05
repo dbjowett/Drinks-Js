@@ -1,10 +1,11 @@
-import { Button, FormControl, FormHelperText, FormLabel, Input, Text, Textarea, useToast } from '@chakra-ui/react';
+import { Button, FormControl, FormHelperText, FormLabel, Input, Text, Textarea, useToast, Select } from '@chakra-ui/react';
 import Router from 'next/router';
 import { useRef } from 'react';
 
 const customStyling = {
-  maxWidth: '500px',
-  minHeight: '400px',
+  maxWidth: '600px',
+  width: '80%',
+  minHeight: '700px',
   marginTop: '100px',
   margin: '0 auto',
   border: '1px solid lightgray',
@@ -59,6 +60,21 @@ export default function New() {
           <FormLabel htmlFor='Description'>Description</FormLabel>
           <Textarea id='Description' placeholder='Description' isRequired ref={descInputRef} />
           <FormHelperText>Please enter a useful description.</FormHelperText>
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor='rating'>Rating</FormLabel>
+          <Select name='Rating' id='rating' variant='flushed' placeholder='Rating out of 5'>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor='ingredient'>Ingredients</FormLabel>
+          <Button>Add new ingredient</Button>
+          <Input id='ingredient' placeholder='Title' />
         </FormControl>
         <Button type='submit' colorScheme='blue'>
           Submit

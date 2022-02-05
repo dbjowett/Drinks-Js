@@ -14,6 +14,7 @@ export async function getAllCocktailIds() {
 }
 
 export async function getCocktailData(id) {
+  console.log(typeof id);
   const res = await fetch(`http://localhost:3000/api/cocktails/${id}`);
   const { data } = await res.json();
 

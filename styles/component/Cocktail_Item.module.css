@@ -1,0 +1,12 @@
+.container {
+  background-color: white;
+  box-shadow: 1px 1px;
+  padding: 10px;
+}
+
+.container button {
+  background-color: var(--main_btn_colour);
+  margin: 5px;
+  padding: 5px;
+  border-radius: 3px;
+}
