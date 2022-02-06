@@ -13,9 +13,10 @@ a {
 
 * {
   box-sizing: border-box;
+  /* background-color: #f7f9fc; */
 }
 
 :root {
-  --main_bg_colour: rgb(255, 222, 222);
+  --main_bg_colour: rgb(216, 216, 216);
   --main_btn_colour: #ebcea6;
 }

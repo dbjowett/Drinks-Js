@@ -1,12 +1,7 @@
-import { Box } from '@chakra-ui/react';
 import CocktailGrid from '../components/Cocktail_Grid';
 
 export default function Home({ data }) {
-  return (
-    <Box maxW='1200px' m='0 auto'>
-      <CocktailGrid cocktails={data} />
-    </Box>
-  );
+  return <CocktailGrid cocktails={data} />;
 }
 
 export async function getStaticProps() {

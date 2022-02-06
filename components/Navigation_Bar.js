@@ -1,17 +1,15 @@
-import { Button, Flex, Text } from '@chakra-ui/react';
 import Link from 'next/link';
+import styles from '../styles/component/Navigation_Bar.module.css';
 
 export default function NavBar() {
   return (
-    <Flex align='center' justify='space-between' maxW='1200px' m='0 auto' padding={10}>
+    <div className={styles.nav_container}>
       <Link href={`/`} passHref>
-        <Text fontSize='3xl' style={{ cursor: 'pointer' }}>
-          Cocktails
-        </Text>
+        <h1>Cocktails</h1>
       </Link>
       <Link href={`/new`} passHref>
-        <Button colorScheme='teal'>Create New</Button>
+        <button className={styles.nav_btn}>Create New</button>
       </Link>
-    </Flex>
+    </div>
   );
 }

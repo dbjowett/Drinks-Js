@@ -1,4 +1,4 @@
-import { Button, FormControl, FormHelperText, FormLabel, Input, Text, Textarea, useToast, Select } from '@chakra-ui/react';
+import { Button, FormControl, FormHelperText, FormLabel, Form, Input, Text, Textarea, useToast, Select } from '@chakra-ui/react';
 import Router from 'next/router';
 import { useRef } from 'react';
 
@@ -50,7 +50,7 @@ export default function New() {
   return (
     <>
       <form onSubmit={submitHandler} style={customStyling}>
-        <Text fontSize='2xl'>Enter a New Cocktail</Text>
+        <Text fontSize='3xl'>Enter a New Cocktail</Text>
         <FormControl isRequired>
           <FormLabel htmlFor='Title'>Title</FormLabel>
           <Input id='Title' placeholder='Title' ref={titleInputRef} />
