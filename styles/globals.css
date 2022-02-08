@@ -1,3 +1,5 @@
+@import url('https://use.typekit.net/gqx1dov.css');
+
 html,
 body {
   padding: 0;
@@ -20,3 +22,21 @@ a {
   --main_bg_colour: rgb(216, 216, 216);
   --main_btn_colour: #ebcea6;
 }
+
+h1 {
+  font-family: lora, serif;
+  font-weight: 400;
+  font-style: normal;
+}
+/* 
+font-family: lora,serif;
+font-weight: 700;
+font-style: italic;
+
+font-family: lora,serif;
+font-weight: 700;
+font-style: normal;
+
+font-family: lora,serif;
+font-weight: 400;
+font-style: normal; */

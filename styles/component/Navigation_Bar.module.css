@@ -9,11 +9,22 @@
 }
 
 .nav_container h1 {
-  font-size: 2rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  cursor: pointer;
 }
 
 .nav_btn {
   background-color: var(--main_btn_colour);
   padding: 10px 25px;
   border-radius: 3px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.nav_btn svg {
+  background-color: inherit;
+  margin-left: 10px;
+  margin-right: -5px;
 }

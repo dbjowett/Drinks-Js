@@ -1,10 +1,14 @@
 .container {
   background-color: white;
   padding: 20px;
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px rgb(0 0 0 / 0.1);
   display: flex;
   flex-direction: column;
+}
+
+.container img {
+  border-radius: 5px;
 }
 
 .container div,
@@ -19,8 +23,36 @@
   border-radius: 3px;
 }
 
+.desc_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 285px;
+  padding: 5px;
+}
+
+.desc {
+  margin-top: 15px;
+}
+
+.desc h1 {
+  background-color: inherit;
+  font-size: 1.6rem;
+}
+
 .btn_container {
   display: flex;
   justify-content: flex-end;
   background-color: inherit;
+}
+
+.btn_container button {
+  display: flex;
+  align-items: center;
+}
+
+.btn_container svg {
+  background-color: inherit;
+  margin-left: 10px;
+  margin-right: -5px;
 }
