@@ -1,20 +1,11 @@
-import { Button, FormControl, FormHelperText, FormLabel, Form, Input, Text, Textarea, useToast, Select } from '@chakra-ui/react';
+import { Button, FormControl, FormHelperText, FormLabel, Input, Text, Textarea, useToast, Select } from '@chakra-ui/react';
+import Creatable from 'react-select/creatable';
 import Router from 'next/router';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import styles from '../styles/page/New_Item_Page.module.css';
+import IngredientInput from '../components/Ingredient_Input';
 
-const customStyling = {
-  maxWidth: '600px',
-  width: '80%',
-  minHeight: '700px',
-  marginTop: '100px',
-  margin: '0 auto',
-  border: '1px solid lightgray',
-  padding: '25px 45px',
-  borderRadius: '10px',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between'
-};
+import { cocktailOptions } from '../utils/cocktailNames';
 
 export default function New() {
   const titleInputRef = useRef();
@@ -23,14 +14,7 @@ export default function New() {
 
   async function submitHandler(e) {
     e.preventDefault();
-    toast({
-      title: 'Cocktail Added',
-      description: 'Your drink has been added to our database.',
-      status: 'success',
-      duration: 2000,
-      isClosable: true
-    });
-
+    // Fix title
     const body = {
       title: titleInputRef.current.value,
       description: descInputRef.current.value
@@ -44,17 +28,66 @@ export default function New() {
       },
       body: JSON.stringify(body)
     });
+    if (res.status === 400) {
+      toast({
+        title: 'Adding Failed! ',
+        description: 'Your drink has not been added',
+        status: 'error',
+        duration: 2000,
+        isClosable: true
+      });
+      return;
+    }
+    toast({
+      title: 'Cocktail Added',
+      description: 'Your drink has been added to our database.',
+      status: 'success',
+      duration: 2000,
+      isClosable: true
+    });
     Router.push('/');
+  }
+
+  //// END OF SUBMIT HANDLER
+
+  const handleInputChange = (inputValue, actionMeta) => {
+    console.group('Input Changed');
+    console.log(inputValue);
+    console.log(`action: ${actionMeta.action}`);
+    console.groupEnd();
+  };
+
+  const handleChange = (newValue, actionMeta) => {
+    console.group('Value Changed');
+    console.log(newValue?.label);
+    console.log(newValue);
+    console.log(`action: ${actionMeta.action}`);
+    // console.groupEnd();
+  };
+
+  // For adding Ingredient Inputs on button click
+  const [ingredientInputList, setIngredientInputList] = useState([]);
+  function onAddIng(e) {
+    setIngredientInputList(ingredientInputList.concat(<IngredientInput key={ingredientInputList.length} />));
   }
 
   return (
     <>
-      <form onSubmit={submitHandler} style={customStyling}>
+      <form onSubmit={submitHandler} className={styles.formContainer}>
         <Text fontSize='3xl'>Enter a New Cocktail</Text>
         <FormControl isRequired>
           <FormLabel htmlFor='Title'>Title</FormLabel>
-          <Input id='Title' placeholder='Title' ref={titleInputRef} />
-          <FormHelperText>Enter an accurate title.</FormHelperText>
+          {/* <Input id='Title' placeholder='Title' ref={titleInputRef} /> */}
+          <Creatable
+            instanceId
+            isClearable
+            defaultValue='Cocktail title'
+            options={cocktailOptions}
+            onChange={handleChange}
+            onInputChange={handleInputChange}
+            ref={titleInputRef}
+          />
+          <FormHelperText>Please enter an accurate title.</FormHelperText>
         </FormControl>
         <FormControl isRequired>
           <FormLabel htmlFor='Description'>Description</FormLabel>
@@ -72,9 +105,12 @@ export default function New() {
           </Select>
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor='ingredient'>Ingredients</FormLabel>
-          <Button>Add new ingredient</Button>
-          <Input id='ingredient' placeholder='Title' />
+          <FormLabel htmlFor='ingredient'>Ingredients (ml)</FormLabel>
+          <IngredientInput />
+          {ingredientInputList}
+          <Button className={styles.ingredientAddBtn} onClick={onAddIng}>
+            Add ingredient
+          </Button>
         </FormControl>
         <Button type='submit' colorScheme='blue'>
           Submit
