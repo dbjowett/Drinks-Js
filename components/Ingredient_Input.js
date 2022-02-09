@@ -1,13 +1,26 @@
 import { Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from '@chakra-ui/react';
 import styles from '../styles/page/New_Item_Page.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const IngredientInput = () => {
-  const [amount, setAmount] = useState('10');
+const IngredientInput = ({ store }) => {
+  const [amount, setAmount] = useState(0);
+  const [title, setTitle] = useState('');
+
+  useEffect(() => {
+    store(amount, title);
+  }, [store, amount, title]);
 
   return (
     <div className={styles.numberInputContainer}>
-      <NumberInput size='md' maxW='24' defaultValue={0} min={0} onChange={(input) => setAmount(input)} value={amount}>
+      <NumberInput
+        allowMouseWheel
+        step={5}
+        size='md'
+        maxW='24'
+        defaultValue={0}
+        min={0}
+        onChange={(input) => setAmount(parseInt(input))}
+        value={amount}>
         <NumberInputField />
         <NumberInputStepper>
           <NumberIncrementStepper />
@@ -15,7 +28,13 @@ const IngredientInput = () => {
         </NumberInputStepper>
       </NumberInput>
 
-      <Input id='ingredient' placeholder='Title' className={styles.numberInputTitle} />
+      <Input
+        id='ingredient'
+        value={title}
+        placeholder='Ingredient'
+        className={styles.numberInputTitle}
+        onChange={(e) => setTitle(e.target.value)}
+      />
     </div>
   );
 };
