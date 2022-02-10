@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText, FormLabel, Input, Text, Textarea, useToast, Spinner } from '@chakra-ui/react';
+import { FormControl, FormHelperText, FormLabel, Input, Text, Textarea, useToast, Spinner, Button } from '@chakra-ui/react';
 import Creatable from 'react-select/creatable';
 import Router from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -7,7 +7,7 @@ import IngredientInput from '../components/Ingredient_Input';
 import ReactStars from 'react-rating-stars-component';
 
 import { cocktailOptions } from '../utils/SelectOptions/cocktailNames';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus, FaUpload } from 'react-icons/fa';
 import axios from 'axios';
 
 export default function NewPage() {
@@ -18,6 +18,7 @@ export default function NewPage() {
   const [imgPreviewSrc, setImgPreviewSrc] = useState();
   const [imageURL, setImageURL] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadBtnText, setUploadBtnText] = useState('Upload Image');
 
   const toast = useToast();
 
@@ -59,8 +60,7 @@ export default function NewPage() {
       isClosable: true
     });
 
-    console.log(imageURL);
-    // Router.push('/');
+    Router.push('/');
   }
   ///////// END OF SUBMIT FUNCTION ///////////
 
@@ -71,14 +71,11 @@ export default function NewPage() {
       const res = await axios.post('/api/images', { data: base64EncodedImage });
       setImageURL(res.data.url);
       setIsUploading(false);
+      setUploadBtnText('Image Uploaded');
     } catch (error) {
       console.log('There was an error: ' + error);
     }
   };
-
-  // if (imgPreviewSrc) {
-  //   uploadImage(imgPreviewSrc);
-  // }
 
   // Title and Rating change
   const handleChange = (newValue) => setTitleState(newValue?.label);
@@ -113,7 +110,7 @@ export default function NewPage() {
     <>
       <form onSubmit={submitHandler} className={styles.formContainer}>
         <Text fontSize='3xl'>Enter a New Cocktail</Text>
-        <FormControl isRequired>
+        <FormControl isRequired className={styles.fileUploadContainer}>
           <FormLabel htmlFor='Title'>Title</FormLabel>
           <Creatable instanceId isClearable options={cocktailOptions} onChange={handleChange} isRequired />
           <FormHelperText>Please enter an accurate title.</FormHelperText>
@@ -122,7 +119,7 @@ export default function NewPage() {
           <FormLabel htmlFor='rating'>Rating</FormLabel>
           <ReactStars count={5} onChange={ratingChanged} size={24} activeColor='#ffd700' />
         </FormControl>
-        <FormControl>
+        <FormControl className={(styles.fileUploadContainer, styles.ingredientsContainer)}>
           <FormLabel htmlFor='ingredient'>Ingredients (oz)</FormLabel>
           {ingredientInputList}
           <FormHelperText> 1 oz = 30ml / 8oz = 1 cup</FormHelperText>
@@ -131,7 +128,7 @@ export default function NewPage() {
             <FaPlus />
           </button>
         </FormControl>
-        <FormControl>
+        <FormControl className={styles.fileUploadContainer}>
           <FormLabel htmlFor='Instructions'>Instructions</FormLabel>
           <Textarea id='Instructions' placeholder='Instructions' ref={descInputRef} />
           <FormHelperText>Please enter detailed instructions.</FormHelperText>
@@ -139,11 +136,23 @@ export default function NewPage() {
         <FormControl className={styles.fileUploadContainer}>
           <FormLabel htmlFor='Instructions'>Upload Photo</FormLabel>
           {imgPreviewSrc && <img src={imgPreviewSrc} alt='Image Preview' style={{ height: '200px', margin: 'auto', padding: '10px' }} />}
-          {isUploading ? <Spinner thickness='4px' color='blue.500' size='lg' /> : <Input type='file' onChange={handleFileUpload} />}
+          {!imgPreviewSrc && (
+            <label className={styles.inputLabel}>
+              <input type='file' onChange={handleFileUpload} />
+            </label>
+          )}
           {imgPreviewSrc && (
-            <button className={styles.uploadBtn} type='button' onClick={uploadImage.bind({}, imgPreviewSrc)}>
-              Upload Image
-            </button>
+            <div className={styles.loadingBtnCtn}>
+              <Button
+                isLoading={isUploading}
+                colorScheme='blue'
+                className={styles.uploadBtn}
+                type='button'
+                leftIcon={<FaUpload />}
+                onClick={uploadImage.bind({}, imgPreviewSrc)}>
+                {uploadBtnText}
+              </Button>
+            </div>
           )}
         </FormControl>
         <button type='submit' className={styles.submitBtn}>
