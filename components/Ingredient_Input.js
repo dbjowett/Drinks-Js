@@ -1,9 +1,11 @@
-import { Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from '@chakra-ui/react';
-import styles from '../styles/page/New_Item_Page.module.css';
+import { NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from '@chakra-ui/react';
+import styles from '/styles/component/Ingredient_Input.module.css';
 import { useEffect, useState } from 'react';
+import Creatable from 'react-select/creatable';
+import { ingredientOptions } from '../utils/SelectOptions/ingredientNames';
 
 const IngredientInput = ({ store }) => {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState();
   const [title, setTitle] = useState('');
 
   useEffect(() => {
@@ -14,12 +16,14 @@ const IngredientInput = ({ store }) => {
     <div className={styles.numberInputContainer}>
       <NumberInput
         allowMouseWheel
-        step={5}
+        step={0.5}
+        defaultValue={1}
+        precision={2}
         size='md'
         maxW='24'
-        defaultValue={0}
+        max={24}
         min={0}
-        onChange={(input) => setAmount(parseInt(input))}
+        onChange={(input) => setAmount(input)}
         value={amount}>
         <NumberInputField />
         <NumberInputStepper>
@@ -27,14 +31,9 @@ const IngredientInput = ({ store }) => {
           <NumberDecrementStepper />
         </NumberInputStepper>
       </NumberInput>
-
-      <Input
-        id='ingredient'
-        value={title}
-        placeholder='Ingredient'
-        className={styles.numberInputTitle}
-        onChange={(e) => setTitle(e.target.value)}
-      />
+      <div className={styles.ingredientSearch}>
+        <Creatable instanceId isClearable width={100} options={ingredientOptions} onChange={(e) => setTitle(e?.label)} isRequired />
+      </div>
     </div>
   );
 };

@@ -1,0 +1,8 @@
+.ingredientSearch {
+  width: 100%;
+}
+
+.numberInputContainer {
+  display: flex;
+  margin-top: 10px;
+}

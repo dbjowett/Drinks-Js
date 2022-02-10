@@ -1,14 +1,17 @@
 .container {
   background-color: white;
-  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px rgb(0 0 0 / 0.1);
   display: flex;
   flex-direction: column;
 }
 
+.imgContainer {
+  position: relative;
+}
+
 .container img {
-  border-radius: 5px;
+  border-radius: 5px 5px 0 0;
 }
 
 .container div,
@@ -23,35 +26,42 @@
   border-radius: 3px;
 }
 
+.container button:hover {
+  background-color: var(--main_btn_colour2);
+}
+
 .desc_container {
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 285px;
-  padding: 5px;
+  position: relative;
+  height: 45%;
 }
 
 .desc {
-  margin-top: 15px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .desc h1 {
-  background-color: inherit;
   font-size: 1.6rem;
 }
 
-.btn_container {
+.starsAndBtn {
   display: flex;
-  justify-content: flex-end;
-  background-color: inherit;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.btn_container button {
+.starsAndBtn button {
   display: flex;
   align-items: center;
 }
 
-.btn_container svg {
+.starsAndBtn svg {
   background-color: inherit;
   margin-left: 10px;
   margin-right: -5px;

@@ -15,12 +15,14 @@ a {
 
 * {
   box-sizing: border-box;
-  /* background-color: #f7f9fc; */
+  /* background-color: #f7f9fc;  */
 }
 
 :root {
   --main_bg_colour: rgb(216, 216, 216);
   --main_btn_colour: #ebcea6;
+  --main_btn_colour2: #e0b77d;
+  --main_btn_colour_darker: #c69f6a;
 }
 
 h1 {

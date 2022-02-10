@@ -5,6 +5,11 @@ export default function SingleCocktailPage({ cocktail }) {
     <Box maxW='600px' m='100px 0 0 0'>
       <Text fontSize='3xl'>{cocktail.title}</Text>
       <div>{cocktail.description}</div>
+      <div>
+        <button>
+          <a href={`/cocktail/edit/${cocktail._id}`}>Edit</a>
+        </button>
+      </div>
     </Box>
   );
 }
