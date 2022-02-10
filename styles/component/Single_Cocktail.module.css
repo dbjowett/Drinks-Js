@@ -1,0 +1,41 @@
+.itemContainer {
+  margin: 100px 0 0 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  max-width: 600px;
+}
+
+.itemContainer img {
+  border-radius: 5px;
+  border: 1px solid white;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.textContainer {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 20px;
+  background-color: var(--main_btn_colour);
+  border-radius: 5px;
+  margin: 50px 0 0 0;
+}
+
+.editBtn svg {
+  margin: 5px -3px 5px 10px;
+  color: rgb(65, 65, 65);
+}

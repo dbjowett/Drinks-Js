@@ -1,17 +1,7 @@
+import SingleCocktail from '../../components/Single_Cocktail';
 import { getAllCocktailIds, getCocktailData } from '../../utils/cocktails';
-import { Box, Text } from '@chakra-ui/react';
 export default function SingleCocktailPage({ cocktail }) {
-  return (
-    <Box maxW='600px' m='100px 0 0 0'>
-      <Text fontSize='3xl'>{cocktail.title}</Text>
-      <div>{cocktail.description}</div>
-      <div>
-        <button>
-          <a href={`/cocktail/edit/${cocktail._id}`}>Edit</a>
-        </button>
-      </div>
-    </Box>
-  );
+  return <SingleCocktail cocktail={cocktail} />;
 }
 
 export async function getStaticProps({ params }) {
