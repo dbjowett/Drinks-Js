@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import Creatable from 'react-select/creatable';
 import { ingredientOptions } from '../utils/SelectOptions/ingredientNames';
 
-const IngredientInput = ({ store }) => {
-  const [amount, setAmount] = useState();
+const IngredientInput = ({ defaultValues, store }) => {
+  const [amount, setAmount] = useState(1);
   const [title, setTitle] = useState('');
 
   useEffect(() => {
@@ -17,7 +17,6 @@ const IngredientInput = ({ store }) => {
       <NumberInput
         allowMouseWheel
         step={0.5}
-        defaultValue={1}
         precision={2}
         size='md'
         maxW='24'

@@ -9,18 +9,21 @@ import ReactStars from 'react-rating-stars-component';
 import { cocktailOptions } from '../utils/SelectOptions/cocktailNames';
 import { FaPlus, FaUpload } from 'react-icons/fa';
 import axios from 'axios';
+import { Success } from '../utils/UI/alert';
 
 export default function NewPage() {
   const descInputRef = useRef();
   const [titleState, setTitleState] = useState('');
   const [ratingState, setRatingState] = useState(0);
 
-  const [imgPreviewSrc, setImgPreviewSrc] = useState();
+  const [image, setImage] = useState();
   const [imageURL, setImageURL] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploadBtnText, setUploadBtnText] = useState('Upload Image');
 
   const toast = useToast();
+
+  console.log(image?.length);
 
   //// SUBMIT///////////////////
   async function submitHandler(e) {
@@ -42,6 +45,7 @@ export default function NewPage() {
       },
       body: JSON.stringify(body)
     });
+
     if (res.status === 400) {
       toast({
         title: 'Adding Failed! ',
@@ -78,7 +82,7 @@ export default function NewPage() {
   };
 
   // Title and Rating change
-  const handleChange = (newValue) => setTitleState(newValue?.label);
+  const titleChanged = (newValue) => setTitleState(newValue?.label);
   const ratingChanged = (e) => setRatingState(e);
 
   const [ingredientStore, setIngredientStore] = useState([]);
@@ -88,21 +92,16 @@ export default function NewPage() {
   };
   // For adding Ingredient Inputs on button click
   const [ingredientInputList, setIngredientInputList] = useState([<IngredientInput key={0} store={storeIngredientInputs} />]);
-
   function onAddIng(e) {
     setIngredientInputList(ingredientInputList.concat(<IngredientInput key={ingredientInputList.length} store={storeIngredientInputs} />));
   }
 
   function handleFileUpload(e) {
-    const image = e.target.files[0];
-    previewImage(image);
-  }
-
-  function previewImage(image) {
+    const userImage = e.target.files[0];
     const reader = new FileReader();
-    reader.readAsDataURL(image);
+    reader.readAsDataURL(userImage);
     reader.onloadend = () => {
-      setImgPreviewSrc(reader.result);
+      setImage(reader.result);
     };
   }
 
@@ -112,7 +111,7 @@ export default function NewPage() {
         <Text fontSize='3xl'>Enter a New Cocktail</Text>
         <FormControl isRequired className={styles.fileUploadContainer}>
           <FormLabel htmlFor='Title'>Title</FormLabel>
-          <Creatable instanceId isClearable options={cocktailOptions} onChange={handleChange} isRequired />
+          <Creatable instanceId isClearable options={cocktailOptions} onChange={titleChanged} isRequired />
           <FormHelperText>Please enter an accurate title.</FormHelperText>
         </FormControl>
         <FormControl isRequired>
@@ -135,26 +134,30 @@ export default function NewPage() {
         </FormControl>
         <FormControl className={styles.fileUploadContainer}>
           <FormLabel htmlFor='Instructions'>Upload Photo</FormLabel>
-          {imgPreviewSrc && <img src={imgPreviewSrc} alt='Image Preview' style={{ height: '200px', margin: 'auto', padding: '10px' }} />}
-          {!imgPreviewSrc && (
+          {imageURL && <Success />}
+          {!image && !imageURL && (
             <label className={styles.inputLabel}>
               <input type='file' onChange={handleFileUpload} />
             </label>
           )}
-          {imgPreviewSrc && (
-            <div className={styles.loadingBtnCtn}>
-              <Button
-                isLoading={isUploading}
-                colorScheme='blue'
-                className={styles.uploadBtn}
-                type='button'
-                leftIcon={<FaUpload />}
-                onClick={uploadImage.bind({}, imgPreviewSrc)}>
-                {uploadBtnText}
-              </Button>
+          {image && !imageURL && (
+            <div>
+              <img src={image} alt='Image Preview' style={{ height: '200px', margin: 'auto', padding: '10px' }} />
+              <div className={styles.loadingBtnCtn}>
+                <Button
+                  isLoading={isUploading}
+                  colorScheme='green'
+                  className={styles.uploadBtn}
+                  type='button'
+                  rightIcon={<FaUpload />}
+                  onClick={uploadImage.bind({}, image)}>
+                  {uploadBtnText}
+                </Button>
+              </div>
             </div>
           )}
         </FormControl>
+
         <button type='submit' className={styles.submitBtn}>
           Submit
         </button>

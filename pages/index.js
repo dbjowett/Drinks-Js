@@ -1,7 +1,6 @@
 import CocktailGrid from '../components/Cocktail_Grid';
 
 export default function Home({ data }) {
-  console.log(data);
   return <CocktailGrid cocktails={data} />;
 }
 
