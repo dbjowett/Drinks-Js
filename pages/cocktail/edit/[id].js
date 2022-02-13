@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import ReactStars from 'react-rating-stars-component';
 import { cocktailOptions } from '../../../utils/SelectOptions/cocktailNames';
 import styles from '../../../styles/component/Single_Cocktail.module.css';
+import editStyles from '../../../styles/page/New_Item_Page.module.css';
 
 import SingleCocktail from '../../../components/Single_Cocktail';
 import { FaPlus } from 'react-icons/fa';
@@ -102,7 +103,7 @@ export default function EditCocktailPage({ cocktail: { _id, title, description, 
       <SingleCocktail cocktail={cocktail} />
       <div style={{ marginTop: '50px' }}>
         <form onSubmit={submitHandler.bind({}, cocktail._id)} style={customStyling}>
-          <Text fontSize='2xl'>Editing {titleState}</Text>
+          <Text fontSize='2xl'>Editing {title}</Text>
           <FormControl isRequired>
             <FormLabel htmlFor='Title'>New Title</FormLabel>
             <Creatable
@@ -135,7 +136,7 @@ export default function EditCocktailPage({ cocktail: { _id, title, description, 
             <FormLabel htmlFor='ingredient'>Ingredients (oz)</FormLabel>
             {ingredientInputList}
             <FormHelperText> 1 oz = 30ml / 8oz = 1 cup</FormHelperText>
-            <button type='button' className={styles.ingredientAddBtn} onClick={onAddIng}>
+            <button type='button' className={editStyles.ingredientAddBtn} onClick={onAddIng}>
               Add ingredient
               <FaPlus />
             </button>

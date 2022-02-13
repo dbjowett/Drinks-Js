@@ -14,10 +14,11 @@
 
 .ingredientAddBtn {
   margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
   display: flex;
   align-items: center;
   font-size: 0.9rem;
-  margin-left: auto;
   border: 2px solid var(--main_btn_colour2);
   padding: 10px;
   border-radius: 5px;
